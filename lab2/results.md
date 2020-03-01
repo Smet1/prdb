@@ -16,7 +16,9 @@
 
 ```sql
 -- получает количество пользователей с заданным настроением
-CREATE OR REPLACE FUNCTION users_with_mood (mood)
+CREATE OR REPLACE FUNCTION users_with_mood (
+    mood
+)
     RETURNS SETOF BIGINT
     AS $$
 BEGIN
@@ -44,7 +46,9 @@ FROM
 возвращает таблицу с инфой о созданных постах
 
 ```sql 
-CREATE OR REPLACE FUNCTION get_topics_short_info (user_id INTEGER)
+CREATE OR REPLACE FUNCTION get_topics_short_info (
+    user_id integer
+)
     RETURNS TABLE (
         id integer,
         header CITEXT,
@@ -85,7 +89,13 @@ SELECT * FROM get_topics_short_info(1);
 Создает пост с авторством пользователя
 
 ```sql
-CREATE OR REPLACE PROCEDURE create_post (header citext, short_topic citext, main_topic citext, authors citext[], username citext)
+CREATE OR REPLACE PROCEDURE create_post (
+    header citext,
+    short_topic citext,
+    main_topic citext,
+    authors citext[],
+    username citext
+)
 LANGUAGE plpgsql
 AS $$
 DECLARE
@@ -97,10 +107,10 @@ BEGIN
         users
     WHERE
         LOGIN = create_post.username;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'User % not found', create_post.username
-            USING HINT = 'Проверьте ваш пользовательский ID';
-    END IF;
+    EXCEPTION 
+        WHEN NO_DATA_FOUND THEN
+            RAISE EXCEPTION 'User % not found', create_post.username
+        
     INSERT INTO posts (header, short_topic, main_topic, user_id, authors)
         VALUES (create_post.header, create_post.short_topic, create_post.main_topic, userID, create_post.authors);
     COMMIT;
@@ -135,4 +145,69 @@ WHERE
     id = 5
 RETURNING
     p.*;
+```
+
+### 2.2 Выполнение рекурсивных запросов
+
+Продемонстрировать выполнение рекурсивного запроса
+
+```sql
+WITH RECURSIVE r AS (
+    SELECT
+        1 AS i,
+        1 AS factorial
+    UNION
+    SELECT
+        i + 1 AS i,
+        factorial * (i + 1) AS factorial
+    FROM
+        r
+)
+SELECT
+    factorial
+FROM
+    r
+LIMIT 12;
+```
+
+### 2.3 Создание динамических запросов
+
+Создать хранимую процедуру с динамическим запросом
+
+Проверяет присутствие в авторах, если отстутствует, то добавляет пользователя
+
+```sql
+CREATE OR REPLACE PROCEDURE create_valid_post (
+    header citext,
+    short_topic citext,
+    main_topic citext,
+    authors citext[],
+    username citext
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    authors citext[];
+    userID int;
+    author citext;
+BEGIN
+    SELECT
+        id INTO STRICT userID
+    FROM
+        users
+    WHERE
+        LOGIN = create_valid_post.username;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'User % not found', create_valid_post.username;
+    END IF;
+    authors = create_valid_post.authors;
+    author = '';
+    IF NOT create_valid_post.username = ANY (authors) THEN
+        authors = array_append(authors, create_valid_post.username);
+    END IF;
+    INSERT INTO posts (header, short_topic, main_topic, user_id, authors)
+        VALUES (create_valid_post.header, create_valid_post.short_topic, create_valid_post.main_topic, userID, authors);
+    COMMIT;
+END;
+$$;
 ```
