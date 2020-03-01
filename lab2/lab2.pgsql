@@ -117,3 +117,19 @@ $$;
 
 CALL create_post ('kek', 'kek1', 'kek2', '{"e", "w", "d"}', 'smet_k');
 
+-- 2.1
+SELECT
+    *
+FROM
+    posts
+LIMIT 3;
+
+UPDATE
+    posts p
+SET
+    header = 'test_header_1_updated'
+WHERE
+    id = 5
+RETURNING
+    p.*;
+
