@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE mydb SYSTEM "db.dtd">
+<mydb>
+    <user idu="u1">
+        <id>1</id>
+        <about>Обо мне</about>
+        <karma>0</karma>
+        <avatar>/static/default.png</avatar>
+        <password>empty</password>
+        <login>a.petrov</login>
+        <first_name>Андрей</first_name>
+        <last_name>Петров</last_name>
+        <middle_name>Андреевич</middle_name>
+    </user>
+
+    <post idp="p1" tot="t1" tou="u1">
+        <id>1</id>
+        <header>header</header>
+        <short_topic>short topic about post</short_topic>
+        <main_topic>main topic</main_topic>
+        <date>05.04.2010</date>
+    </post>
+
+    <tag idt="t1" top="p1">
+        <id>1</id>
+        <name>pbd</name>
+    </tag>
+</mydb>

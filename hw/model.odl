@@ -1,0 +1,45 @@
+interface User
+(extent ConstUser_PK key ID)
+{
+    attribute integer ID;
+    attribute string about;
+    attribute integer karma;
+    attribute string avatar;
+    attribute string password;
+    attribute string login;
+    attribute struct {string F, string I, string O} FIO;
+
+    FIO get(ID) raises(noUser);
+
+    relationship set<Post> Posts inverse Post::User
+};
+
+class Admin
+[extends User:Admin]
+(extent ConstAdmin_PK key ID)
+{
+    attribute string Role;
+    attribute bool Active;
+};
+
+class Post
+(extent ConstPost_PK key ID)
+{
+    attribute integer ID;
+    attribute string header;
+    attribute integer short_topic;
+    attribute string main_topic;
+    attribute date date;
+
+    relationship User TopicUser inverse User::Posts
+    relationship set<Tag> Tags inverse Tag::Posts
+};
+
+class Tag
+(extent ConstTag_PK key ID)
+{
+    attribute integer ID;
+    attribute string name;
+
+    relationship set<Post> Posts inverse Post::Tags
+};

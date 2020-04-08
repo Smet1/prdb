@@ -1,0 +1,27 @@
+<!ELEMENT mydb (user|post|tag)*>
+<!ELEMENT user (id|about|karma|avatar|password|login|first_name|last_name|middle_name)*>
+<!ATTLIST user
+        idu CDATA #REQUIRED>
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT about (#PCDATA)>
+<!ELEMENT karma (#PCDATA)>
+<!ELEMENT avatar (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+<!ELEMENT login (#PCDATA)>
+<!ELEMENT first_name (#PCDATA)>
+<!ELEMENT last_name (#PCDATA)>
+<!ELEMENT middle_name (#PCDATA)>
+<!ELEMENT post (id|header|short_topic|main_topic|date)*>
+<!ATTLIST post
+        idp CDATA #REQUIRED
+        tot CDATA #REQUIRED
+        tou CDATA #REQUIRED>
+<!ELEMENT header (#PCDATA)>
+<!ELEMENT short_topic (#PCDATA)>
+<!ELEMENT main_topic (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT tag (id|name)*>
+<!ATTLIST tag
+        idt CDATA #REQUIRED
+        top CDATA #REQUIRED>
+<!ELEMENT name (#PCDATA)>
