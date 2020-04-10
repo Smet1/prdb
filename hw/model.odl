@@ -1,5 +1,4 @@
-interface User
-(extent ConstUser_PK key ID)
+interface IUser
 {
     attribute integer ID;
     attribute string about;
@@ -14,8 +13,13 @@ interface User
     relationship set<Post> Posts inverse Post::User
 };
 
+class User
+extends IUser
+(extent ConstUser_PK key ID)
+{};
+
 class Admin
-[extends User:Admin]
+extends IUser
 (extent ConstAdmin_PK key ID)
 {
     attribute string Role;

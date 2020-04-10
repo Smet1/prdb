@@ -40,11 +40,6 @@ CREATE TYPE TagT AS (
     `name` text,
 );
 
-CREATE TYPE PostTag (
-    tag_id integer,
-    post_id integer
-);
-
 -- tables
 CREATE TABLE `User` OF UserT (
     PRIMARY KEY (ID),
@@ -60,8 +55,8 @@ CREATE TABLE `Tag` OF TagT (
 );
 
 CREATE TABLE PostTag (
-    Tags REF (PostT) SCOPE Post,
-    Users REF (UserT) SCOPE `User`,
+    Tags REF (TagT) SCOPE Tag,
+    Post REF (PostT) SCOPE Post,
 );
 
 CREATE TABLE `Admin` OF AdminT ();
@@ -72,7 +67,7 @@ CREATE ORDERING PostT ORDER FULL BY RELATIVE WITH Fun
 CREATE FUNCTION Fun (IN S1 PostT, IN S2 PostT) 
 RETURNS integer
 IF S1.header()<>S2.header() THEN RETURN (-1)
-ELSEIF S1.short_topic()>S2.short_topic() THEN RETURN (-1) 
+ELSEIF S1.short_topic()<>S2.short_topic() THEN RETURN (-1) 
 ELSEIF S1.main_topic()<>S2.main_topic() THEN RETURN (-1) 
 ELSEIF S1.date()<S2.date() THEN RETURN (-1) 
 ELSEIF S1.date()>S2.date() THEN RETURN (1) 
