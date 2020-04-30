@@ -1,0 +1,14 @@
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\bin\Debug\Lab4_p1.exe.config
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\bin\Debug\Lab4_p1.exe
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\bin\Debug\Lab4_p1.pdb
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\obj\Debug\Lab4_p1.csprojAssemblyReference.cache
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\obj\Debug\Lab4_p1.csproj.CoreCompileInputs.cache
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\obj\Debug\Lab4_p1.exe
+C:\Users\Mega\source\repos\Lab4_p1\Lab4_p1\obj\Debug\Lab4_p1.pdb
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\bin\Debug\Lab4_p1.exe.config
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\bin\Debug\Lab4_p1.exe
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\bin\Debug\Lab4_p1.pdb
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\obj\Debug\Lab4_p1.csprojAssemblyReference.cache
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\obj\Debug\Lab4_p1.csproj.CoreCompileInputs.cache
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\obj\Debug\Lab4_p1.exe
+C:\Users\Кирилл\Desktop\виноградова\Lab4\Lab4_p1\obj\Debug\Lab4_p1.pdb

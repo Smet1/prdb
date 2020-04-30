@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="pbd" Class="DataClasses2DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\MSSQLSERVER01;Initial Catalog=pbd;Integrated Security=True" SettingsObjectName="Lab4_p2.Properties.Settings" SettingsPropertyName="pbdConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.comments" Member="comments">
+    <Type Name="comments">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="parent_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="post_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="payload" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="comments_comments" Member="comments2" ThisKey="id" OtherKey="parent_id" Type="comments" />
+      <Association Name="comments_comments" Member="comments1" ThisKey="parent_id" OtherKey="id" Type="comments" IsForeignKey="true" />
+      <Association Name="posts_comments" Member="posts" ThisKey="post_id" OtherKey="id" Type="posts" IsForeignKey="true" />
+      <Association Name="users_comments" Member="users" ThisKey="user_id" OtherKey="id" Type="users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.posts" Member="posts">
+    <Type Name="posts">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="header" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="short_topic" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="main_topic" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="posts_comments" Member="comments" ThisKey="id" OtherKey="post_id" Type="comments" />
+      <Association Name="users_posts" Member="users" ThisKey="user_id" OtherKey="id" Type="users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.users" Member="users">
+    <Type Name="users">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="login" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="karma" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="users_comments" Member="comments" ThisKey="id" OtherKey="user_id" Type="comments" />
+      <Association Name="users_posts" Member="posts" ThisKey="id" OtherKey="user_id" Type="posts" />
+    </Type>
+  </Table>
+</Database>
