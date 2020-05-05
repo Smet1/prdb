@@ -344,7 +344,7 @@ post = db.post.findOne({ _id: ObjectId("5eb055f6e244723e67ab5392") });
 db.user.find({ _id: post.user.$id })
 ```
 
-```json
+```js
 {
 	"_id" : ObjectId("5eb04beee244723e67ab5387"),
 	"login" : "smet_k",
