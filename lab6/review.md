@@ -1,9 +1,9 @@
-## Задание 1. Создание БД (базовое)
+### Задание 1. Создание БД (базовое)
 Создать в среде MongoDb свою БД по теме ДЗ, содержащую не менее двух коллекций.
 Добавить в коллекции БД объекты сложной структуры, содержащие вложенные структуры и массивы.
 Продемонстрировать (вывести на экран) содержимое коллекций.
 
-### Пользователи
+#### Пользователи
 ```js
 db.createCollection("user");
 
@@ -44,7 +44,7 @@ db.user.insertMany([
 ]);
 ```
 
-### Статьи
+#### Статьи
 ```js
 db.createCollection("post");
 
@@ -90,7 +90,7 @@ db.post.insertMany([
 
 ---
 
-## Задание 2. Изменение данных (базовое)
+### Задание 2. Изменение данных (базовое)
 Продемонстрировать изменение объектов БД:
 - добавление элемента объекта,
 - изменение элемента объекта,
@@ -98,10 +98,10 @@ db.post.insertMany([
 - замена всего объекта,
 - удаление объекта.
 
-### Добавление элемента объекта
+#### Добавление элемента объекта
 См. Задание 1
 
-### Изменение элемента объекта
+#### Изменение элемента объекта
 ```js
 db.post.updateMany(
     { "header": "new post header" },
@@ -109,7 +109,7 @@ db.post.updateMany(
 );
 ```
 
-### Удаление элемента объекта
+#### Удаление элемента объекта
 ```js
 db.post.updateOne(
     { "header": "new post header" },
@@ -117,7 +117,7 @@ db.post.updateOne(
 );
 ```
 
-### Замена всего объекта
+#### Замена всего объекта
 ```js
 db.post.replaceOne(
     { "header": "new post header" },
@@ -136,7 +136,7 @@ db.post.replaceOne(
 );
 ```
 
-### Удаление объекта
+#### Удаление объекта
 ```js
 db.post.deleteOne(
     { "_id": ObjectId("5eb05cafe244723e67ab5399") }
@@ -154,12 +154,12 @@ db.post.deleteOne(
 - условия на поля вложенных структур, 
 - поиск по элементам массива объекта.
 
-### Вывод всех элементов коллекции
+#### Вывод всех элементов коллекции
 ```js
 db.post.find()
 ```
 
-### Вывод с фильтрацией (условия с И)
+#### Вывод с фильтрацией (условия с И)
 ```js
 db.post.find(
     {
@@ -171,7 +171,7 @@ db.post.find(
 );
 ```
 
-### Проекция вывода (вывод части полей)
+#### Проекция вывода (вывод части полей)
 ```js
 db.post.find(
     {
@@ -184,21 +184,21 @@ db.post.find(
 );
 ```
 
-### Сортировка
+#### Сортировка
 ```js
 db.post.find(
     { $and: [{ "show": true }, { "created": { $lte: Date() } }] }
 ).sort({ "created": -1 });
 ```
 
-### Условия на поля вложенных структур
+#### Условия на поля вложенных структур
 ```js
 db.user.find(
     { "name.firstname": "f" }
 );
 ```
 
-### Поиск по элементам массива объекта
+#### Поиск по элементам массива объекта
 ```js
 db.user.find(
     {"languages": {$all: ["prussian"]}}
@@ -216,7 +216,7 @@ db.user.find(
 - продемонстрировать выполнение операторов count, distinct, limit,
 - поиск по вложенным коллекциям объекта.
 
-### Вывод с фильтрацией (условия И, ИЛИ, операции сравнения)
+#### Вывод с фильтрацией (условия И, ИЛИ, операции сравнения)
 ```js
 db.user.find(
     {
@@ -245,7 +245,7 @@ db.user.find(
 );
 ```
 
-### Проекция вывода (вывод конкретных полей; вывод без идентификатора)
+#### Проекция вывода (вывод конкретных полей; вывод без идентификатора)
 ```js
 db.user.find(
     {},
@@ -256,7 +256,7 @@ db.user.find(
 );
 ```
 
-### С условием на наличие поля
+#### С условием на наличие поля
 ```js
 db.user.find(
     {
@@ -269,7 +269,7 @@ db.user.find(
 );
 ```
 
-### Вывести один элемент коллекции
+#### Вывести один элемент коллекции
 ```js
 db.user.findOne(
     {
@@ -282,7 +282,7 @@ db.user.findOne(
 );
 ```
 
-### Продемонстрировать выполнение операторов count, distinct, limit
+#### Продемонстрировать выполнение операторов count, distinct, limit
 ```js
 db.user.count();
 ```
@@ -297,15 +297,11 @@ db.user.distinct("languages") // не работает
 db.user.find().limit(10)
 ```
 
-### Поиск по вложенным коллекциям объекта
-```js
-```
-
 Продемонстрировать изменение объектов БД:
 - добавление, удаление, изменение элементов массива,
 - изменение нескольких объектов коллекции в одном запросе.
 
-### Добавление, удаление, изменение элементов массива
+#### Добавление, удаление, изменение элементов массива
 ```js
 // добавление
 db.user.update(
@@ -326,7 +322,7 @@ db.user.update(
 );
 ```
 
-### Изменение нескольких объектов коллекции в одном запросе
+#### Изменение нескольких объектов коллекции в одном запросе
 ```js
 db.post.updateMany(
     { "show": true },
@@ -336,8 +332,8 @@ db.post.updateMany(
 
 ---
 
-## Задание 5. Дополнительные возможности (отлично)
-### Добавить в коллекцию связанные объекты. Продемонстрировать переход по связи в запросе.
+### Задание 5. Дополнительные возможности (отлично)
+#### Добавить в коллекцию связанные объекты. Продемонстрировать переход по связи в запросе.
 ```js
 post = db.post.findOne({ _id: ObjectId("5eb055f6e244723e67ab5392") });
 
@@ -364,10 +360,132 @@ db.user.find({ _id: post.user.$id })
 }
 ```
 
+```js
+db.post.findOne({ _id: ObjectId("5eb05b1be244723e67ab5395") }).user.fetch();
+```
 
-### Выполнить запрос к базе данных с группировкой и агрегированием.
+```js
+{
+	"_id" : ObjectId("5eb04ebde244723e67ab538b"),
+	"login" : "smet_k_1",
+	"password" : "password_hash",
+	"name" : {
+		"firstname" : "f_1",
+		"lastname" : "l_2",
+		"middlename" : "m_3"
+	},
+	"avatar" : "/static/new.png",
+	"karma" : 1,
+	"registered" : "Mon May 04 2020 17:19:57 GMT+0000 (UTC)",
+	"languages" : [
+		"english",
+		"russian",
+		"prussian"
+	]
+}
+```
 
-### Создать уникальный индекс на одном из полей. Продемонстрировать использование индекса.
+```js
+// join всей колекции с помощью dbref
+db.post.find().forEach(function (p) { tmp = p; tmp.user = p.user.fetch(); printjson(tmp) })
+```
+
+```js
+{
+	"_id" : ObjectId("5eb05b1be244723e67ab5395"),
+	"header" : "another new post header new",
+	"short_topic" : "another post short topic new",
+	"main_topic" : "another very interesting topic new",
+	"user" : {
+		"_id" : ObjectId("5eb04ebde244723e67ab538b"),
+		"login" : "smet_k_1",
+		"password" : "password_hash",
+		"name" : {
+			"firstname" : "f_1",
+			"lastname" : "l_2",
+			"middlename" : "m_3"
+		},
+		"avatar" : "/static/new.png",
+		"karma" : 1,
+		"registered" : "Mon May 04 2020 17:19:57 GMT+0000 (UTC)",
+		"languages" : [
+			"english",
+			"russian",
+			"prussian"
+		]
+	},
+	"show" : false,
+	"created" : "Mon May 04 2020 18:36:36 GMT+0000 (UTC)"
+}
+{
+	"_id" : ObjectId("5eb05b1be244723e67ab5396"),
+	"header" : "another new post header",
+	"short_topic" : "another post short topic",
+	"main_topic" : "another very interesting topic ",
+	"user" : {
+		"_id" : ObjectId("5eb04beee244723e67ab5387"),
+		"login" : "smet_k",
+		"password" : "password_hash",
+		"name" : {
+			"firstname" : "f",
+			"lastname" : "l",
+			"middlename" : "m"
+		},
+		"avatar" : "/static/default.png",
+		"karma" : 0,
+		"registered" : "Mon May 04 2020 17:07:57 GMT+0000 (UTC)",
+		"languages" : [
+			"english",
+			"tmp"
+		]
+	},
+	"show" : false,
+	"created" : "Mon May 04 2020 18:12:43 GMT+0000 (UTC)"
+}
+{
+	"_id" : ObjectId("5eb3df61bbd6f662cc0b07fe"),
+	"header" : "new post header tmp",
+	"short_topic" : "post short topic tmp",
+	"main_topic" : "very interesting topic tmp",
+	"user" : {
+		"_id" : ObjectId("5eb04beee244723e67ab5387"),
+		"login" : "smet_k",
+		"password" : "password_hash",
+		"name" : {
+			"firstname" : "f",
+			"lastname" : "l",
+			"middlename" : "m"
+		},
+		"avatar" : "/static/default.png",
+		"karma" : 0,
+		"registered" : "Mon May 04 2020 17:07:57 GMT+0000 (UTC)",
+		"languages" : [
+			"english",
+			"tmp"
+		]
+	},
+	"show" : false,
+	"created" : "Thu May 07 2020 10:13:53 GMT+0000 (UTC)"
+}
+```
+
+
+
+#### Выполнить запрос к базе данных с группировкой и агрегированием.
+```js
+db.post.aggregate([
+    {
+        $group: {
+            _id: "$user",
+            min_date: { $max: "$created" },
+            count: { $sum: 1 },
+        },
+    },
+    { $sort: { count: 1 } },
+]);
+```
+
+#### Создать уникальный индекс на одном из полей. Продемонстрировать использование индекса.
 ```js
 db.user.createIndex({ "login": 1 }, { unique: true });
 ```
