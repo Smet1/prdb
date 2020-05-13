@@ -4,6 +4,7 @@
 ## Полезности
 * [Докер для postgres с pgadmin](docker-compose_postgre.yml)
 * [Докер для ms sql](docker-compose_mssql.yml) - подойдет ток для 5 лабы
+* [Докер для cassandra](docker-compose_cassandra.yml)
 
 ## Лабораторная 1
 
@@ -36,6 +37,12 @@
 [Задание и метода](lab6)
 
 [Отчет](lab6/review.md)
+
+## Лабораторная 7
+[Задание и метода](lab7)
+
+[Отчет](lab7/review.md)
+
 
 ## ДЗ 1
 [Задание](hw/pdb2019_dz1.doc)
