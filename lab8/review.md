@@ -104,7 +104,7 @@ match (u:User)<-[d:created_by]-(p:Post) return p,d order by d.date desc
 ```
 match (u:User) --> (p:Post) return u,p
 ```
-![](./pic/10.png)
+нет результатов
 
 ```
 match (u:User) <-- (p:Post) return u,p
