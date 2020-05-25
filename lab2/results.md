@@ -1,12 +1,72 @@
-# отчет
-
-[Задание](README.md)
-
 ## Задание 1 *Базовая часть (удовлетворительно)*
 
 ### 1.1 *Создание и заполнение таблицы*
+```sql
+CREATE EXTENSION IF NOT EXISTS CITEXT;
 
-[Смотри](./../lab1/lab_1.sql)
+DROP TABLE IF EXISTS users, posts, tag, comments;
+
+CREATE TYPE fullname AS
+(
+    firstname  CITEXT,
+    lastname   CITEXT,
+    middlename CITEXT
+);
+
+CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
+
+CREATE TABLE IF NOT EXISTS users
+(
+    id         SERIAL PRIMARY KEY,
+    login      CITEXT   NOT NULL UNIQUE,
+    password   TEXT,
+    name       fullname NOT NULL DEFAULT ('empty', 'empty', 'empty')::fullname,
+    avatar     CITEXT   NOT NULL,
+    karma      INT               DEFAULT 0,
+    registered timestamptz       DEFAULT now(),
+    mood       mood              DEFAULT 'ok'
+);
+
+ALTER TABLE users
+    ADD CHECK ( length(password) > 5 );
+
+CREATE TYPE super_users_level AS ENUM ('base', 'ok', 'incredible');
+
+CREATE TABLE IF NOT EXISTS super_users
+(
+    level super_users_level DEFAULT 'base'
+)
+    INHERITS (users);
+
+CREATE TABLE IF NOT EXISTS posts
+(
+    id          SERIAL PRIMARY KEY,
+    header      CITEXT   NOT NULL UNIQUE,
+    short_topic CITEXT   NOT NULL UNIQUE,
+    main_topic  CITEXT   NOT NULL UNIQUE,
+    user_id     int      NOT NULL REFERENCES users (id),
+    authors     CITEXT[] NOT NULL,
+    show        bool        DEFAULT False,
+    created     timestamptz DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS tag
+(
+    id   SERIAL PRIMARY KEY,
+    name CITEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS comments
+(
+    id        SERIAL PRIMARY KEY,
+    parent_id int REFERENCES comments (id),
+    user_id   int  NOT NULL REFERENCES users (id),
+    post_id   int  NOT NULL REFERENCES posts (id),
+    payload   text NOT NULL,
+    show      bool        DEFAULT True,
+    created   timestamptz DEFAULT now()
+);
+```
 
 ### 1.2 *Программирование функций  с применением  SQL\PSM*
 
